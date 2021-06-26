@@ -42,6 +42,12 @@ function App() {
       <div className="d-block d-md-none">
         <MobileView>
           <Switch>
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/register" axact>
+              <Register />
+            </Route>
             <Route path="/messages">
               <Chat />
             </Route>
