@@ -51,6 +51,9 @@ function App() {
             <Route path="/messages">
               <Chat />
             </Route>
+            <Route path="/upload" exact>
+              <ImageUpload />
+            </Route>
             <Route path="/">
               <Convos />
             </Route>

@@ -10,7 +10,7 @@ const Container = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  background: url("/images/bg-2.png");
+  background: url("/images/chat_bg.png");
 `;
 
 const Messages = ({ messages }) => {

@@ -31,7 +31,7 @@ const Camera = styled.div`
   position: absolute;
   bottom: 50px;
   right: 5px;
-  background-color: #d8d8d8;
+  background-color: rgb(3, 20, 31);
   border-radius: 50%;
   &:hover {
     opacity: 0.8;

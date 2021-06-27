@@ -1,11 +1,13 @@
 import Convo from "./Convo";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import AddNewChat from "./AddNewChat";
 
 const Container = styled.div`
   background-color: #03141f;
   height: 100%;
   overflow-y: scroll;
+  position: relative;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -16,6 +18,7 @@ const Convos = () => {
   const { convos } = useSelector((state) => state.convoReducer);
   return (
     <Container>
+      <AddNewChat />
       {convos &&
         convos
           .slice()

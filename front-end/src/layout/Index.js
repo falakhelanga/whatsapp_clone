@@ -7,7 +7,7 @@ import NewChat from "../components/aside/StartNewChat";
 import MainHeader from "../components/main/Header";
 import useIsAuth from "../hooks_and_helpers/isAuth";
 import TypeMessage from "../components/main/TypeMessage";
-import SocketProvider from "../context/sockeHook";
+
 import {
   useFetchConvos,
   useResetNumMessages,
@@ -47,7 +47,7 @@ const MessageContainer = styled.div`
   height: 100%;
 
   overflow-y: scroll;
-  background: url("/images/bg-2.png");
+  background: url("/images/chat_bg.png");
   background-size: cover;
   background-position: center;
   &::-webkit-scrollbar {
