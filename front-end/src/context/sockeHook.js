@@ -18,7 +18,9 @@ const SocketProvider = ({ children, number }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = io("http://localhost:5000", { query: { id: number } });
+    const socket = io("https://chatappclone.herokuapp.com", {
+      query: { id: number },
+    });
 
     setSocket(socket);
     return () => {
