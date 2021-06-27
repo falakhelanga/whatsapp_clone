@@ -2,9 +2,9 @@ import S3 from "aws-sdk/clients/s3.js";
 import fs from "fs";
 
 const s3 = new S3({
-  region: "us-east-2",
-  accessKeyId: "AKIAVTQHTHQSLZVCYXEP",
-  secretAccessKey: "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",
+  region: process.env.AWS_BUCKET_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
 const uploadFile = (file) => {
