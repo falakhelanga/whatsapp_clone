@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Paper } from "@material-ui/core";
 import { useAddmessage } from "../../hooks_and_helpers/convos";
 import { useSocket } from "../../context/sockeHook";
 import { useRef } from "react";
+import { modalActions } from "../../store/slices/modal";
 
 const TextArea = styled.textarea`
   border-radius: 5px;
@@ -46,17 +47,19 @@ const variants = {
     opacity: 0,
   },
 };
-const Modal = ({ setShowModal, showModal }) => {
+const Modal = () => {
   const { addMessageHandler } = useAddmessage();
+  const dispatch = useDispatch();
   const socket = useSocket();
   const numberRef = useRef();
   const messageRef = useRef();
 
   const { number: myNumber } = useSelector((state) => state.login);
   const { error } = useSelector((state) => state.convoReducer);
+  const { show } = useSelector((state) => state.modal);
   return (
     <AnimatePresence exitBeforeEnter>
-      {showModal && (
+      {show && (
         <motion.div
           animate="visible"
           initial="hidden"
@@ -82,7 +85,7 @@ const Modal = ({ setShowModal, showModal }) => {
                   recipient: number,
                   status: "online",
                 });
-                addMessageHandler(message, myNumber, number, setShowModal);
+                addMessageHandler(message, myNumber, number);
               }}
             >
               <div className="d-flex flex-column mt-3">
@@ -111,7 +114,7 @@ const Modal = ({ setShowModal, showModal }) => {
                 <Button
                   type="button"
                   onClick={() => {
-                    setShowModal(false);
+                    dispatch(modalActions.hideModal());
                   }}
                   className="mt-3 btn w-100 bg-light fw-bold me-1 "
                 >

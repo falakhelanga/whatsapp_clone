@@ -14,11 +14,21 @@ const Container = styled.div`
     display: none;
   }
 `;
+
+const H4 = styled.h4`
+  color: whitesmoke;
+`;
 const Convos = () => {
   const { convos } = useSelector((state) => state.convoReducer);
   return (
     <Container>
       <AddNewChat />
+      {convos.length === 0 && (
+        <div className="d-flex align-items-center flex-column h-100 w-100 justify-content-center">
+          <H4>You have no chats!</H4>
+          <H4 className="mt-3">Click the button to start new chat</H4>
+        </div>
+      )}
       {convos &&
         convos
           .slice()

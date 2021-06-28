@@ -8,14 +8,10 @@ import MainHeader from "../components/main/Header";
 import useIsAuth from "../hooks_and_helpers/isAuth";
 import TypeMessage from "../components/main/TypeMessage";
 
-import {
-  useFetchConvos,
-  useResetNumMessages,
-} from "../hooks_and_helpers/convos";
+import { useFetchConvos } from "../hooks_and_helpers/convos";
 import { useSelector } from "react-redux";
 
 import { withRouter, useLocation } from "react-router-dom";
-import useRedirectHome from "../hooks_and_helpers/redirectToHome";
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +62,6 @@ const LayOut = ({ children }) => {
 
   useFetchConvos();
   useIsAuth();
-  useResetNumMessages();
 
   return (
     <Container className="container">

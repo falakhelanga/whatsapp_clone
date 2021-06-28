@@ -18,13 +18,13 @@ export const useAddmessage = () => {
   const dispatch = useDispatch();
 
   const addMessageHandler = useCallback(
-    (message, author, id, setShowModal = null) => {
+    (message, author, id) => {
       const convoExist = convos.find((convo) => convo.recipeientId === id);
 
       if (convoExist) {
-        dispatch(addMessage(message, author, id, setShowModal));
+        dispatch(addMessage(message, author, id));
       } else {
-        dispatch(addConvoAction(id, message, setShowModal));
+        dispatch(addConvoAction(id, message));
       }
     },
     [convos, dispatch]
@@ -36,16 +36,18 @@ export const useAddmessage = () => {
 export const useRecieveMessage = () => {
   const socket = useSocket();
   const { addMessageHandler } = useAddmessage();
+  const location = useLocation();
 
   useEffect(() => {
     if (socket == null) return;
     socket.on("recieve-message", ({ author, message, recipient }) => {
       console.log(message);
+      console.log("kk");
       addMessageHandler(message, author, recipient);
     });
 
     return () => socket.off("recieve-message");
-  }, [socket, addMessageHandler]);
+  }, [socket, addMessageHandler, location]);
 };
 
 export const useResetNumMessages = () => {

@@ -24,18 +24,19 @@ const Messages = ({ messages }) => {
   }, [messageRef.current]);
   return (
     <Container className="container">
-      {messages.map((message, index) => {
-        const lastMessage = messages?.length - 1 === index;
-        return (
-          <div key={message._id} ref={lastMessage ? messageRef : null}>
-            <Message
-              message={message.message}
-              author={message.author}
-              date={message.date}
-            />
-          </div>
-        );
-      })}
+      {messages &&
+        messages.map((message, index) => {
+          const lastMessage = messages?.length - 1 === index;
+          return (
+            <div key={message._id} ref={lastMessage ? messageRef : null}>
+              <Message
+                message={message.message}
+                author={message.author}
+                date={message.date}
+              />
+            </div>
+          );
+        })}
     </Container>
   );
 };

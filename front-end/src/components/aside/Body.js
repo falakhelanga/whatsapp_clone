@@ -18,12 +18,19 @@ const Container = styled.div`
     background: whitesmoke;
   }
 `;
-
+const H4 = styled.h4`
+  color: whitesmoke;
+`;
 const Body = () => {
   const { convos } = useSelector((state) => state.convoReducer);
 
   return (
     <Container>
+      {convos.length === 0 && (
+        <div className="d-flex align-items-center flex-column h-100 w-100 justify-content-center mt-4">
+          <H4>You have no chats!</H4>
+        </div>
+      )}
       {convos &&
         convos
           .slice()

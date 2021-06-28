@@ -3,6 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import TextTruncate from "react-truncate-markup";
 import NumMessage from "../../../components/aside/NumMessage";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { convosActions } from "../../../store/slices/convos";
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -26,10 +28,12 @@ const Convo = ({
   lastMessageTime,
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <Container
       className="container py-2"
       onClick={() => {
+        dispatch(convosActions.resetNumMessages(recipient));
         history.push(`/messages/?freind=${recipient}`);
       }}
     >

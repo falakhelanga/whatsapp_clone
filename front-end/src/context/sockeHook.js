@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import { createContext, useContext, useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useLocation } from "react-router-dom";
 import addConvoAction from "../store/actions/convos";
 import { convosActions } from "../store/slices/convos";
 
@@ -16,7 +16,7 @@ const SocketProvider = ({ children, number }) => {
 
   const { convos } = useSelector((state) => state.convoReducer);
   const dispatch = useDispatch();
-
+  const location = useLocation();
   useEffect(() => {
     const socket = io("https://chatappclone.herokuapp.com", {
       query: { id: number },
@@ -65,12 +65,13 @@ const SocketProvider = ({ children, number }) => {
       newSocket.on(
         "recieve-message",
         ({ author, message, recipient, status }) => {
+          const path = location.search.split("=")[1];
           const convoExist = convos.find(
             (convo) => convo.recipeientId === recipient
           );
           if (convoExist) {
             dispatch(
-              convosActions.addMessage({ id: recipient, author, message })
+              convosActions.addMessage({ id: recipient, author, message, path })
             );
           } else {
             dispatch(addConvoAction(recipient, message, status, 1));
@@ -107,7 +108,7 @@ const SocketProvider = ({ children, number }) => {
         newSocket.off("recieve-message");
       }
     };
-  }, [number, dispatch, convos, newSocket]);
+  }, [number, dispatch, convos, newSocket, location]);
 
   return (
     <socketContext.Provider value={newSocket}>

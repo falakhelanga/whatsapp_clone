@@ -10,6 +10,7 @@ import { useState } from "react";
 const Container = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
   height: 100vh;
   flex-direction: column;
 `;
@@ -31,7 +32,7 @@ const Chat = () => {
       <Header
         name={currChat?.recipientName}
         image={currChat?.recipientImage}
-        status={currChat.status}
+        status={currChat?.status}
       />
       <Messages messages={currChat?.messages} />
 

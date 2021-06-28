@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <Container className="container py-4">
       <Avatar src={imageUrl} alt="profile picture" />
-      <Logo>Whatsapp</Logo>
+      <Logo>Whatsapp Clone</Logo>
       <MoreVertIcon />
     </Container>
   );

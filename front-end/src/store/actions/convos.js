@@ -1,9 +1,8 @@
 import { convosActions } from "../slices/convos";
 import axios from "axios";
-
+import { modalActions } from "../slices/modal";
 export const addMessage =
-  (message, author, id, setShowModal = null) =>
-  async (dispatch, getState) => {
+  (message, author, id) => async (dispatch, getState) => {
     const { number } = getState().login;
     dispatch(convosActions.addConvoInit());
     try {
@@ -25,9 +24,9 @@ export const addMessage =
       );
 
       dispatch(convosActions.addMessage({ id, message, author }));
-      setShowModal !== null && setShowModal(false);
+      dispatch(modalActions.hideModal());
     } catch (error) {
-      setShowModal !== null && setShowModal(false);
+      dispatch(modalActions.hideModal());
     }
   };
 
@@ -49,51 +48,48 @@ export const fetchConvos = () => async (dispatch, getState) => {
   }
 };
 
-const addConvo =
-  (recipient, message, status, numMessages = 0) =>
-  async (dispatch, getState) => {
-    const { number, imageUrl } = getState().login;
+const addConvo = (recipient, message, status) => async (dispatch, getState) => {
+  const { number, imageUrl } = getState().login;
 
-    dispatch(convosActions.addConvoInit());
+  dispatch(convosActions.addConvoInit());
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const { data } = await axios.post(
-        "/convos/add",
-        {
-          message,
-          recipient,
-          number,
-          imageUrl,
-        },
-        config
-      );
-
-      dispatch(
-        convosActions.addConvoSucc({
-          numMessages,
-          recipientName: data?.name,
-          recipeientId: recipient,
-          recipientImage: data?.imageUrl,
-          status: data?.status || status,
-          messages: [
-            {
-              date: Date.now(),
-              author: number,
-              message: message,
-            },
-          ],
-        })
-      );
-
-      localStorage.setItem("convos", JSON.stringify(getState().convoReducer));
-    } catch (error) {
-      dispatch(convosActions.addConvoFail(error?.response?.data?.message));
-    }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
+  try {
+    const { data } = await axios.post(
+      "/convos/add",
+      {
+        message,
+        recipient,
+        number,
+        imageUrl,
+      },
+      config
+    );
+
+    dispatch(
+      convosActions.addConvoSucc({
+        recipientName: data?.name,
+        recipeientId: recipient,
+        recipientImage: data?.imageUrl,
+        status: data?.status || status,
+        messages: [
+          {
+            date: Date.now(),
+            author: number,
+            message: message,
+          },
+        ],
+      })
+    );
+    dispatch(modalActions.hideModal());
+    localStorage.setItem("convos", JSON.stringify(getState().convoReducer));
+  } catch (error) {
+    dispatch(convosActions.addConvoFail(error?.response?.data?.message));
+  }
+};
 
 export default addConvo;

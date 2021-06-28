@@ -9,7 +9,7 @@ import { useAddmessage } from "../../../hooks_and_helpers/convos";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 const Container = styled.div`
-  background-color: rgb(3, 20, 31);
+  background-color: #e5ddd5;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -89,6 +89,9 @@ const TypeMessage = ({ setShowEmoji, value, setValue }) => {
           type="text"
           value={value}
           placeholder="type message..."
+          onFocus={() => {
+            setShowEmoji(false);
+          }}
           onChange={(e) => {
             setValue(e.target.value);
           }}

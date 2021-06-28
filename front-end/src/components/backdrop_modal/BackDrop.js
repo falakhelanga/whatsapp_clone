@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -23,16 +24,17 @@ const variants = {
   },
 };
 const Backdrop = ({ showModal, setShowModal }) => {
+  const { show } = useSelector((state) => state.modal);
   return (
     <AnimatePresence exitBeforeEnter>
-      {showModal && (
+      {show && (
         <Container
           variants={variants}
           animate="visible"
           initial="hidden"
           exit="hidden"
         >
-          <Modal setShowModal={setShowModal} showModal={showModal} />
+          <Modal />
         </Container>
       )}
     </AnimatePresence>

@@ -33,6 +33,7 @@ const convosSlice = createSlice({
       state.convos = action.payload;
     },
     addMessage: (state, action) => {
+      const path = action.payload.path;
       const id = action.payload.id;
       const author = action.payload.author;
       const message = action.payload.message;
@@ -52,10 +53,22 @@ const convosSlice = createSlice({
         },
       ];
       state.convos[recipientIndex].messages = updatedMessages;
+
       if (author === id) {
-        state.convos[recipientIndex].numMessages =
-          state.convos[recipientIndex].numMessages + 1;
+        if (!path || path !== id) {
+          state.convos[recipientIndex].numMessages =
+            state.convos[recipientIndex].numMessages + 1;
+        }
       }
+
+      // if (author === id) {
+      //   if (path === id) {
+      //     state.convos[recipientIndex].numMessages = 0;
+      //   } else {
+      //     state.convos[recipientIndex].numMessages =
+      //       state.convos[recipientIndex].numMessages + 1;
+      //   }
+      // }
     },
 
     apdateStatus: (state, action) => {
@@ -71,12 +84,12 @@ const convosSlice = createSlice({
 
     resetNumMessages: (state, action) => {
       const id = action.payload;
+
       const recipientIndex = state.convos.findIndex(
         (convo) => convo.recipeientId === id
       );
-      if (recipientIndex) {
-        state.convos[recipientIndex].numMessages = 0;
-      }
+
+      state.convos[recipientIndex].numMessages = 0;
     },
   },
 });

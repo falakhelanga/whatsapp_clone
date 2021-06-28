@@ -2,9 +2,9 @@ import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import BackDrop from "../../../components/backdrop_modal/BackDrop";
-
+import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { modalActions } from "../../../store/slices/modal";
 const Container = styled.div`
   background-color: teal;
   border-radius: 50%;
@@ -20,17 +20,14 @@ const Container = styled.div`
 `;
 
 const AddNewChat = () => {
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
   return (
     <>
-      {createPortal(
-        <BackDrop setShowModal={setShowModal} showModal={showModal} />,
-        document.getElementById("backdrop")
-      )}
+      {createPortal(<BackDrop />, document.getElementById("backdrop"))}
       <Container className="fw-bold">
         <IconButton
           onClick={() => {
-            setShowModal(true);
+            dispatch(modalActions.setShowModal());
           }}
         >
           <AddIcon />

@@ -3,7 +3,8 @@ import NumMessage from "./NumMessage";
 import Avatar from "@material-ui/core/Avatar";
 import TextTruncate from "react-truncate-markup";
 import { useHistory } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { convosActions } from "../../store/slices/convos";
 const Status = styled.div`
   color: ${({ status }) => (status === "offline" ? "whitesmoke" : "#25D366")};
 `;
@@ -30,10 +31,12 @@ const Convo = ({
   numMessage,
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <Container
       className="container py-2"
       onClick={() => {
+        dispatch(convosActions.resetNumMessages(recipient));
         history.push(`/${recipient}/?num=${recipient}`);
       }}
     >

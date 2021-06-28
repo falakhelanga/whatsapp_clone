@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import login from "./slices/login";
 import register from "./slices/register";
 import convoReducer from "./slices/convos";
+import modal from "./slices/modal";
 
 const initialConvos =
   localStorage.getItem("convos") !== null
@@ -24,6 +25,7 @@ const store = configureStore({
     convoReducer,
     login,
     register,
+    modal,
   },
 
   preloadedState: {
