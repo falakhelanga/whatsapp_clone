@@ -6,7 +6,7 @@ const Container = styled.div`
   left: auto;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
-  z-index: 1;
+  z-index: 3;
 `;
 
 const RippleLoader = () => {

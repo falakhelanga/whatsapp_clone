@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
+color: whitesmoke
   width: 100%;
 `;
 
@@ -31,6 +31,7 @@ const Camera = styled.div`
   position: absolute;
   bottom: 50px;
   right: 5px;
+  color: whitesmoke;
   background-color: rgb(3, 20, 31);
   border-radius: 50%;
   &:hover {

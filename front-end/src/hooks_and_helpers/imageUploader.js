@@ -11,11 +11,11 @@ const useUploader = () => {
   const { number } = useSelector((state) => state.login);
 
   const imageHandler = async (e) => {
+    setLoading(true);
+    setError(null);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    setError(null);
-    setLoading(true);
 
     const config = {
       headers: {
