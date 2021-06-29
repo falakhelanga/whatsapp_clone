@@ -35,7 +35,7 @@ const Login = () => {
   const { loginHandler, loading, error } = useLogin();
 
   const formSubmit = (values) => {
-    loginHandler(values.name, values.password);
+    loginHandler(values.number, values.password);
   };
   return loading ? (
     <Spinner />
