@@ -19,6 +19,7 @@ export const register = async (req, res, next) => {
       name,
       number,
       password: hashedPassword,
+
       convos: [],
     });
 

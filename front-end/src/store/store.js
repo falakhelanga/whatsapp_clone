@@ -3,6 +3,7 @@ import login from "./slices/login";
 import register from "./slices/register";
 import convoReducer from "./slices/convos";
 import modal from "./slices/modal";
+import dialog from "./slices/dialog";
 
 const initialConvos =
   localStorage.getItem("convos") !== null
@@ -26,6 +27,7 @@ const store = configureStore({
     login,
     register,
     modal,
+    dialog,
   },
 
   preloadedState: {

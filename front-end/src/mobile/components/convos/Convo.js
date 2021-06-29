@@ -5,6 +5,7 @@ import NumMessage from "../../../components/aside/NumMessage";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { convosActions } from "../../../store/slices/convos";
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -30,15 +31,21 @@ const Convo = ({
   const history = useHistory();
   const dispatch = useDispatch();
   return (
-    <Container
-      className="container py-2"
-      onClick={() => {
-        dispatch(convosActions.resetNumMessages(recipient));
-        history.push(`/messages/?freind=${recipient}`);
-      }}
-    >
-      <Avatar src={image} alt="recipient Image" />
-      <NameMessage className="d-flex align-items-start justify-content-between py-3 w-100">
+    <Container className="container py-2">
+      <Avatar
+        src={image}
+        alt="recipient Image"
+        onClick={() => {
+          history.push(`/profile/?freind=${recipient}`);
+        }}
+      />
+      <NameMessage
+        className="d-flex align-items-start justify-content-between py-3 w-100"
+        onClick={() => {
+          dispatch(convosActions.resetNumMessages(recipient));
+          history.push(`/messages/?freind=${recipient}`);
+        }}
+      >
         <div className=" ms-3 d-flex flex-column justify-content-center">
           <div className="fw-bold text-capitalize">{name}</div>
           <TextTruncate>

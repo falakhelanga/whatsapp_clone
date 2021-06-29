@@ -1,11 +1,13 @@
 import LayOut from "./layout/Index";
 import Messages from "./components/main/Body";
 import Login from "./components/login_register/Login";
+
 import Register from "./components/login_register/Register";
 import HomeRouter from "./components/main/HomeRoute";
 import ImageUpload from "./components/imaga_name-upload.js/ImageUpload";
 import MobileView from "./mobile/layout/Index";
 import Convos from "./mobile/views/Convos";
+import Profile from "./mobile/views/Profile";
 import Chat from "./mobile/views/Chat";
 import SocketProvider from "./context/sockeHook";
 import { Route, Switch } from "react-router-dom";
@@ -44,6 +46,9 @@ function App() {
           <Switch>
             <Route path="/login" exact>
               <Login />
+            </Route>
+            <Route path="/profile" exact>
+              <Profile />
             </Route>
             <Route path="/register" axact>
               <Register />
