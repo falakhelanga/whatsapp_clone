@@ -4,10 +4,11 @@ import IconButton from "@material-ui/core/IconButton";
 import { useSocket } from "../../../context/sockeHook";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, memo } from "react";
+import { useEffect, memo } from "react";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useAddmessage } from "../../../hooks_and_helpers/convos";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
-
+import KeyboardIcon from "@material-ui/icons/Keyboard";
 const Container = styled.div`
   background-color: #e5ddd5;
   display: flex;
@@ -18,7 +19,7 @@ const Container = styled.div`
   color: whitesmoke;
 `;
 
-const Input = styled.textarea`
+const Input = styled(TextareaAutosize)`
   background-color: transparent;
   border: none;
   outline: none;
@@ -53,7 +54,10 @@ const InputArea = styled.div`
 const Emoji = styled(EmojiEmotionsIcon)`
   color: whitesmoke;
 `;
-const TypeMessage = ({ setShowEmoji, value, setValue }) => {
+const Keyboard = styled(KeyboardIcon)`
+  color: whitesmoke;
+`;
+const TypeMessage = ({ setShowEmoji, value, setValue, showEmoji }) => {
   const { addMessageHandler } = useAddmessage();
   const location = useLocation();
   const { number } = useSelector((state) => state.login);
@@ -74,7 +78,10 @@ const TypeMessage = ({ setShowEmoji, value, setValue }) => {
       };
     }
   }, [value, socket, recipient, number]);
-
+  const IconContainer = styled.div`
+    border-radius: 50%;
+    background-color: teal;
+  `;
   return (
     <Container className="container py-2">
       <InputArea className="  px-3">
@@ -83,10 +90,11 @@ const TypeMessage = ({ setShowEmoji, value, setValue }) => {
             setShowEmoji((prevState) => !prevState);
           }}
         >
-          <Emoji />
+          {showEmoji ? <Keyboard /> : <Emoji />}
         </IcoBtn>
         <Input
-          type="text"
+          rowsMax={3}
+          aria-label="maximum height"
           value={value}
           placeholder="type message..."
           onFocus={() => {
@@ -97,22 +105,23 @@ const TypeMessage = ({ setShowEmoji, value, setValue }) => {
           }}
         />
       </InputArea>
-      <IcoBtn
-        className="p-3"
-        onClick={() => {
-          socket.emit("send-message", {
-            author: number,
-            message: value,
-            recipient,
-            status: "online",
-          });
-          setShowEmoji(false);
-          addMessageHandler(value, number, recipient, null);
-          setValue("");
-        }}
-      >
-        <Send />
-      </IcoBtn>
+      <IconContainer className="p-1">
+        <IcoBtn
+          onClick={() => {
+            socket.emit("send-message", {
+              author: number,
+              message: value,
+              recipient,
+              status: "online",
+            });
+            setShowEmoji(false);
+            addMessageHandler(value, number, recipient, null);
+            setValue("");
+          }}
+        >
+          <Send />
+        </IcoBtn>
+      </IconContainer>
     </Container>
   );
 };

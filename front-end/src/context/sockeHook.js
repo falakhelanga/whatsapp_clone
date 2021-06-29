@@ -74,7 +74,7 @@ const SocketProvider = ({ children, number }) => {
               convosActions.addMessage({ id: recipient, author, message, path })
             );
           } else {
-            dispatch(addConvoAction(recipient, message, status, 1));
+            dispatch(addConvoAction(recipient, message, status, author));
           }
         }
       );

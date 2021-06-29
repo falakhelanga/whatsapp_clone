@@ -14,9 +14,7 @@ const Container = styled.div`
   height: 100vh;
   flex-direction: column;
 `;
-const EmojiPicker = styled(Picker)`
-  overflow-y: hidden;
-`;
+
 const Chat = () => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [value, setValue] = useState("");
@@ -40,9 +38,10 @@ const Chat = () => {
         setShowEmoji={setShowEmoji}
         value={value}
         setValue={setValue}
+        showEmoji={showEmoji}
       />
       {showEmoji && (
-        <EmojiPicker
+        <Picker
           disableSearchBar={true}
           onEmojiClick={onEmojiClick}
           className="w-100"
@@ -50,6 +49,7 @@ const Chat = () => {
             width: "100%",
             boxShadow: "none",
             borderRadius: "0px",
+            height: "500px",
           }}
         />
       )}

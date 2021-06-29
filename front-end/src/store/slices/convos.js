@@ -10,6 +10,9 @@ const convosSlice = createSlice({
   name: "convos",
   initialState,
   reducers: {
+    logOutConvo: (state, action) => {
+      state.convos = [];
+    },
     addConvoSucc: (state, action) => {
       state.convos = [...state.convos, action.payload];
       state.loading = false;
@@ -60,15 +63,6 @@ const convosSlice = createSlice({
             state.convos[recipientIndex].numMessages + 1;
         }
       }
-
-      // if (author === id) {
-      //   if (path === id) {
-      //     state.convos[recipientIndex].numMessages = 0;
-      //   } else {
-      //     state.convos[recipientIndex].numMessages =
-      //       state.convos[recipientIndex].numMessages + 1;
-      //   }
-      // }
     },
 
     apdateStatus: (state, action) => {

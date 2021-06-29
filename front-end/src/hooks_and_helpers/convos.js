@@ -24,7 +24,7 @@ export const useAddmessage = () => {
       if (convoExist) {
         dispatch(addMessage(message, author, id));
       } else {
-        dispatch(addConvoAction(id, message));
+        dispatch(addConvoAction(id, message, "online", author));
       }
     },
     [convos, dispatch]

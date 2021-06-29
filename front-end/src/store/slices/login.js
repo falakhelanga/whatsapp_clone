@@ -13,6 +13,12 @@ const login = createSlice({
   name: "login",
   initialState,
   reducers: {
+    logOut: (state, action) => {
+      state.token = null;
+      state.number = null;
+      state.name = null;
+      state.imageUrl = null;
+    },
     loginInit: (state, action) => {
       state.loading = true;
       state.error = null;

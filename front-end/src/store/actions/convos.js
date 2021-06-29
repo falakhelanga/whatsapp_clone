@@ -48,48 +48,51 @@ export const fetchConvos = () => async (dispatch, getState) => {
   }
 };
 
-const addConvo = (recipient, message, status) => async (dispatch, getState) => {
-  const { number, imageUrl } = getState().login;
+const addConvo =
+  (recipient, message, status, author) => async (dispatch, getState) => {
+    const { number, imageUrl } = getState().login;
 
-  dispatch(convosActions.addConvoInit());
+    dispatch(convosActions.addConvoInit());
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  try {
-    const { data } = await axios.post(
-      "/convos/add",
-      {
-        message,
-        recipient,
-        number,
-        imageUrl,
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
       },
-      config
-    );
+    };
+    try {
+      const { data } = await axios.post(
+        "/convos/add",
+        {
+          message,
+          recipient,
+          number,
+          imageUrl,
+        },
+        config
+      );
+      const numMessages = author !== number ? 1 : 0;
 
-    dispatch(
-      convosActions.addConvoSucc({
-        recipientName: data?.name,
-        recipeientId: recipient,
-        recipientImage: data?.imageUrl,
-        status: data?.status || status,
-        messages: [
-          {
-            date: Date.now(),
-            author: number,
-            message: message,
-          },
-        ],
-      })
-    );
-    dispatch(modalActions.hideModal());
-    localStorage.setItem("convos", JSON.stringify(getState().convoReducer));
-  } catch (error) {
-    dispatch(convosActions.addConvoFail(error?.response?.data?.message));
-  }
-};
+      dispatch(
+        convosActions.addConvoSucc({
+          numMessages,
+          recipientName: data?.name,
+          recipeientId: recipient,
+          recipientImage: data?.imageUrl,
+          status: data?.status || status,
+          messages: [
+            {
+              date: Date.now(),
+              author,
+              message: message,
+            },
+          ],
+        })
+      );
+      dispatch(modalActions.hideModal());
+      localStorage.setItem("convos", JSON.stringify(getState().convoReducer));
+    } catch (error) {
+      dispatch(convosActions.addConvoFail(error?.response?.data?.message));
+    }
+  };
 
 export default addConvo;
